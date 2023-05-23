@@ -1,5 +1,25 @@
 html {
-    min-height: 100%;
+    height: 100%;
+}
 
+body {
+    background-image: url('https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166910.jpg?size=626&ext=jpg&ga=GA1.2.1453007049.1684830776&semt=ais');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.buttons {
+    margin: 0;
+}
+
+#portfolio__management {
+    padding: 20px;
+    margin: 50px 50px 50px 0;
+}
+
+#market__management {
+    padding: 20px;
+    padding-right: 25px;
+    margin: 50px 50px 50px 0px;
 }
 
