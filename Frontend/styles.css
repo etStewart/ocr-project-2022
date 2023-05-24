@@ -6,6 +6,7 @@ body {
     background-image: url('https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166910.jpg?size=626&ext=jpg&ga=GA1.2.1453007049.1684830776&semt=ais');
     background-repeat: no-repeat;
     background-size: 100%;
+    margin: 0;
 }
 
 .buttons {
@@ -19,7 +20,20 @@ body {
 
 #market__management {
     padding: 20px;
-    padding-right: 25px;
+    padding-right: 29px;
+    padding-left: 29;
     margin: 50px 50px 50px 0px;
 }
 
+h1 {
+    color: white;
+    padding: 20px;
+    font-size: xx-large;
+}
+
+#wallet {
+    padding: 20px;
+    padding-right: 67px;
+    padding-left: 67px;
+    margin: 50px 50px 50px 0px;
+}
