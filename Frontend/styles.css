@@ -16,6 +16,9 @@ body {
 #portfolio__management {
     padding: 20px;
     margin: 50px 50px 50px 0;
+    font-size: large;
+    background-color: transparent;
+    color: white;
 }
 
 #market__management {
@@ -23,6 +26,9 @@ body {
     padding-right: 29px;
     padding-left: 29;
     margin: 50px 50px 50px 0px;
+    font-size: large;
+    background-color: transparent;
+    color: white;
 }
 
 h1 {
@@ -36,4 +42,7 @@ h1 {
     padding-right: 67px;
     padding-left: 67px;
     margin: 50px 50px 50px 0px;
+    font-size: large;
+    background-color: transparent;
+    color: white;
 }
