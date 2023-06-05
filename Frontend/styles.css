@@ -39,8 +39,8 @@ h1 {
 
 #wallet {
     padding: 20px;
-    padding-right: 67px;
-    padding-left: 67px;
+    padding-right: 80px;
+    padding-left: 80px;
     margin: 50px 50px 50px 0px;
     font-size: large;
     background-color: transparent;
@@ -48,6 +48,16 @@ h1 {
 }
 
 #market_link {
+    color: white;
+    text-decoration: none;
+}
+
+#wallet_link {
+    color: white;
+    text-decoration: none;
+}
+
+#portfolio_link {
     color: white;
     text-decoration: none;
 }
