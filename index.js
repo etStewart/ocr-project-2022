@@ -1,7 +1,7 @@
-import Alpaca from '@alpacahq/alpaca-trade-api';
+const Alpaca = require('@alpacahq/alpaca-trade-api')
 
-const APIKey = "PK4SM17D2X87CLG9DKNZ"
-const APISecret = "Vq0tsrV80WngGbal6HaT1TPYInyCYADhBKihjnAC"
+const APIKey = "PKQU3UMD89C6VSJGZRAV"
+const APISecret = "IsaGQPd9bhv4nH5ahSJO4MvSNKPKXiG2RHZpAbyK"
 
 const alpaca = new Alpaca({
     keyId: APIKey,
