@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "@alpacahq/alpaca-trade-api": "^3.0.1"
+    "@alpacahq/alpaca-trade-api": "^3.0.1",
+    "lodash": "^4.17.21",
+    "technicalindicators": "^3.1.0"
   },
   "name": "ocr-project-2022",
   "version": "1.0.0",
