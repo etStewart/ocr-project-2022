@@ -1,5 +1,7 @@
 //fetching the alpaca API
 const Alpaca = require('@alpacahq/alpaca-trade-api')
+const _ = require('lodash');
+const SMA = require('technicalindicators').SMA;
 
 //keys for project
 const APIKey = "PKQU3UMD89C6VSJGZRAV"
