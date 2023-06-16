@@ -1,24 +1,35 @@
 //fetching the alpaca API
-const Alpaca = require('@alpacahq/alpaca-trade-api')
 const _ = require('lodash');
+const Alpaca = require('@alpacahq/alpaca-trade-api');
 const SMA = require('technicalindicators').SMA;
 
-//keys for project
-const APIKey = "PKQU3UMD89C6VSJGZRAV"
-const APISecret = "IsaGQPd9bhv4nH5ahSJO4MvSNKPKXiG2RHZpAbyK"
-
-//using object to store necessary data
 const alpaca = new Alpaca({
-    keyId: APIKey,
-    secretKey: APISecret,
-    paper: true
-  });
+  keyId: process.env.API_KEY,
+  secretKey: process.env.SECRET_API_KEY,
+  paper: true
+});
 
-//using an asynchornis function to call the data from my alpaca account
 async function printAccount() {
-    const account = await alpaca.getAccount();
-    console.log(account);
+  const account = await alpaca.getAccount();
+  console.log(account);
 }
 
-printAccount();
+async function initializeAverages() {
+  const initialData = await alpaca.getBars(
+    '1Min',
+    'SPY',
+    {
+      limit: 50,
+      until: new Date()
+    }
+  );
+  
+  const closeValues = _.map(initialData.SPY, (bar) => bar.c);
+  sma20 = new SMA({ period: 20, values: closeValues });
+  sma50 = new SMA({ period: 50, values: closeValues });
+  console.log(`sma20: ${sma20.getResult()}`);
+  console.log(`sma50: ${sma50.getResult()}`);
+}
+
+initializeAverages();
 
