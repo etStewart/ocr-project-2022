@@ -20,5 +20,5 @@ async function printAccount() {
     console.log(account);
 }
 
-  printAccount();
+printAccount();
 
