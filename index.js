@@ -11,16 +11,12 @@ const secretKey = '9rZHrcqHyVAqh6TrljCTayCfghqTmY9HRpkBK7uE';
 const alpaca = new Alpaca({
   keyId: apiKey,
   secretKey: secretKey,
-  paper: true // Using the paper trading environment
+  paper: true
 });
-
-// Function to print the account details
 async function printAccount() {
   const account = await alpaca.getAccount();
   console.log(account);
 }
-
-printAccount()
 
 // Function to initialize the moving averages
 async function initializeAverages() {
@@ -48,6 +44,5 @@ async function initializeAverages() {
 
 // Calling the function to initialize the moving averages
 initializeAverages();
-
 
 
