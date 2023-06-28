@@ -1,31 +1,38 @@
 from alpaca.data.historical import StockHistoricalDataClient
-from alpaca.data.requests import StockLatestQuoteRequest
+from alpaca.data.requests import StockBarsRequest
+from alpaca.trading.client import TradingClient
+from alpaca.data.timeframe import TimeFrame
+from datetime import datetime
+
+sma20 = 0
+sma50 = 0
     
 API_KEY = "PKBFRFWBV2IIXYC9BPQ5"
 SECRET_KEY = "9rZHrcqHyVAqh6TrljCTayCfghqTmY9HRpkBK7uE"
 
-stock_client = StockHistoricalDataClient(
-    API_KEY, SECRET_KEY)
+trading_client = TradingClient(API_KEY, SECRET_KEY, paper=True)
+stock_client = StockHistoricalDataClient(API_KEY, SECRET_KEY)
 
-multisymbol_request_params = StockLatestQuoteRequest(symbol_or_symbols=["SPY", "GLD", "TLT"])
+def GET_ACCOUNT_INFO():
+    ACCOUNT = trading_client.get_account()
+    return ACCOUNT
 
-latest_multisymbol_qoutes = stock_client.get_stock_latest_quote(multisymbol_request_params)
+def initialize_average():
+    current_time = datetime.now()
+    last_minute_time = current_time.minute - 50
 
-gld_latest_ask_price = latest_multisymbol_qoutes["GLD"].ask_price
-spy_latest_ask_price = latest_multisymbol_qoutes["SPY"].ask_price
-tlt_latest_ask_price = latest_multisymbol_qoutes["TLT"].ask_price
+    initial_data = StockBarsRequest(
+        symbol_or_symbols=["SPY", "GLD"],
+        timeframe=TimeFrame.Minute,
+        start=datetime(2022, 7, 1),
+        end=datetime(2022, 9, 1)
+    )
 
-print("The current price of TLT is " + str(tlt_latest_ask_price))
-print("The current price of SPY is " + str(spy_latest_ask_price))
-print("The current price of GLD is " + str(gld_latest_ask_price))
+    bars = stock_client.get_stock_bars(initial_data)
+    panda_bars = bars.df
 
-"""
-async def get_account_info():
-    print("Hello World")
+    print(last_minute_time)
 
-async def get_last_bars():
-    print("Hello World")
+initialize_average()
 
-async def get_realtime_price():
-    print("Hello World")
-"""
+    
