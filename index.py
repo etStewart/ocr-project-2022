@@ -18,8 +18,8 @@ def GET_ACCOUNT_INFO():
     return ACCOUNT
 
 def initialize_average():
-    current_time = datetime.now()
-    last_minute_time = current_time.minute - 50
+    now = datetime.datetime.now()
+    time_50_minutes_ago = now - datetime.timedelta(minutes=50)
 
     initial_data = StockBarsRequest(
         symbol_or_symbols=["SPY", "GLD"],
