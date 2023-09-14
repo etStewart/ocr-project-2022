@@ -1,12 +1,12 @@
 from __future__ import (absolute_import, division, print_function, unicode_literals)
-# Importing necessary libraries
+
 import backtrader as bt
 import datetime
 import os.path
 import sys
 
 if __name__ == '__main__':
-    # Create a cerebro instance
+
     account = bt.Cerebro()
     account.broker.setcash(100000.0)
 
@@ -20,11 +20,10 @@ if __name__ == '__main__':
         reverse = False
     )
 
-    # Print the starting portfolio value
+    account.adddata(datafeed)
+
     print('Starting Portfolio Value: %.2f' % account.broker.getvalue())
 
-    # Run the strategy
     account.run()
 
-    # Print the final portfolio value
     print('Final Portfolio Value: %.2f' % account.broker.getvalue())
