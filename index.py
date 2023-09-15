@@ -27,9 +27,11 @@ if __name__ == '__main__':
     # Create a cerebro entity which is the main object of Backtrader
     account = bt.Cerebro()
 
+    account.addstrategy(Strategy)
+
     # Define data feed parameters
     modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
-    datapath = os.path.join(modpath, '../../datas/orcl-1995-2014.txt')
+    datapath = os.path.join(modpath, '../ocr-project-2022/orcl-1995-2014.txt')
 
     # Create a data feed
     data = bt.feeds.YahooFinanceCSVData(
