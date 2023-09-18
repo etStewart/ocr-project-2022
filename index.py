@@ -2,8 +2,6 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import datetime
-import os.path
-import sys
 
 import backtrader as bt
 
@@ -14,6 +12,41 @@ class Strategy(bt.Strategy):
         fast_period=10,
         slow_period=30
     )
+
+    def log(self, txt, dt=None):
+        dt = dt or self.datas[0].datetime.date(0)
+        if isinstance(dt, float):
+            dt = bt.num2date(dt)
+        print('%s, %s' % (dt.isoformat(), txt))
+
+    def notify_order(self, order):
+        if order.status in [order.Submitted, order.Accepted]:
+            self.log('ORDER ACCEPTED/SUBMITTED', dt=order.created.dt)
+            self.order = order
+            return
+
+        if order.status in [order.Expired]:
+            self.log('EXPIRED')
+
+        elif order.status in [order.Completed]:
+            if order.isbuy():
+                self.log(
+                    'BUY EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                    (
+                        order.executed.price,
+                        order.executed.value,
+                        order.executed.comm
+                    ))
+
+            else:
+                self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                         (
+                             order.executed.price,
+                             order.executed.value,
+                             order.executed.comm
+                         ))
+
+        self.order = None
 
     def __init__(self):
         sma1 = bt.ind.SMA(period=self.p.fast_period)
@@ -47,39 +80,3 @@ print('Starting Portfolio Value: %.2f' % account.broker.getvalue())
 account.run()
 
 print('Final Portfolio Value: %.2f' % account.broker.getvalue())
-
-
-'''
-    def log(self, txt, dt=None):
-        dt = dt or self.datas[0].datetime.date(0)
-        print('%s, %s' % (dt.isoformat(), txt))
-'''
-
-
-'''
-    def notify_order(self, order):
-        if order.status in [order.Submitted, order.Accepted]:
-            return
-
-        if order.status in [order.Completed]:
-            if order.isbuy():
-                self.log('BUY EXECUTED, %.2f' %
-                         (order.executed.price,
-                          order.executed.value,
-                          order.executed.comm))
-                self.buyprice = order.executed.price
-            elif order.issell():
-                self.log('SELL EXECUTED, %.2f' % order.executed.price)
-            self.bar_executed = len(self)
-
-        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log('Order Canceled/Margin/Rejected')
-
-        self.order = None
-'''
-
-
-'''
-    modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
-    datapath = os.path.join(modpath, '../ocr-project-2022/orcl-1995-2014.txt')
-'''
