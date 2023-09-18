@@ -1,56 +1,74 @@
-# Import necessary libraries
-from __future__ import (absolute_import, division, print_function, unicode_literals)
-import backtrader as bt
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
 import datetime
 import os.path
 import sys
 
-# Define the trading strategy
+import backtrader as bt
+
 class Strategy(bt.Strategy):
 
-    # Define a log function for better debugging and tracking
     def log(self, txt, dt=None):
         dt = dt or self.datas[0].datetime.date(0)
         print('%s, %s' % (dt.isoformat(), txt))
 
-    # Initialize the strategy
     def __init__(self):
         self.dataclose = self.datas[0].close
+        self.order = None
 
-    # Define what to do on each iteration of the trading loop
+    def notify_order(self, order):
+        if order.status in [order.Submitted, order.Accepted]:
+            return
+
+        if order.status in [order.Completed]:
+            if order.isbuy():
+                self.log('BUY EXECUTED, %.2f' % order.executed.price)
+            elif order.issell():
+                self.log('SELL EXECUTED, %.2f' % order.executed.price)
+            self.bar_executed = len(self)
+
+        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
+            self.log('Order Canceled/Margin/Rejected')
+
+        self.order = None
+
     def next(self):
         self.log('Close, %.2f' % self.dataclose[0])
 
-# Main function to run the strategy
+        if self.order:
+            return
+
+        if not self.position:
+            if self.dataclose[0] < self.dataclose[-1]:
+                if self.dataclose[-1] < self.dataclose[-2]:
+                    self.log('BUY CREATE, %.2f' % self.dataclose[0])
+                    self.order = self.buy()
+
+        else:
+            if len(self) >= (self.bar_executed + 5):
+                self.log('SELL CREATE, %.2f' % self.dataclose[0])
+                self.order = self.sell()
+
 if __name__ == '__main__':
+    cerebro = bt.Cerebro()
+    cerebro.addstrategy(Strategy)
 
-    # Create a cerebro entity which is the main object of Backtrader
-    account = bt.Cerebro()
-
-    account.addstrategy(Strategy)
-
-    # Define data feed parameters
     modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
     datapath = os.path.join(modpath, '../ocr-project-2022/orcl-1995-2014.txt')
 
-    # Create a data feed
     data = bt.feeds.YahooFinanceCSVData(
         dataname=datapath,
         fromdate=datetime.datetime(2000, 1, 1),
         todate=datetime.datetime(2000, 12, 31),
         reverse=False)
 
-    # Add the data feed to cerebro
-    account.adddata(data)
+    cerebro.adddata(data)
 
-    # Set our desired cash start
-    account.broker.setcash(100000.0)
+    cerebro.broker.setcash(100000.0)
 
-    # Print out the starting conditions
-    print('Starting Portfolio Value: %.2f' % account.broker.getvalue())
+    print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
 
-    # Run over everything
-    account.run()
+    cerebro.run()
 
-    # Print out the final result
-    print('Final Portfolio Value: %.2f' % account.broker.getvalue())
+    print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
