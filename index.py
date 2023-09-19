@@ -31,19 +31,17 @@ class Strategy(bt.Strategy):
         elif order.status in [order.Completed]:
             if order.isbuy():
                 self.log(
-                    'BUY EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                    'BUY EXECUTED, Price: %.2f, Cost: %.2f' %
                     (
                         order.executed.price,
-                        order.executed.value,
-                        order.executed.comm
+                        order.executed.value
                     ))
 
             else:
-                self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
+                self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f' %
                          (
                              order.executed.price,
-                             order.executed.value,
-                             order.executed.comm
+                             order.executed.value
                          ))
 
         self.order = None
@@ -56,7 +54,7 @@ class Strategy(bt.Strategy):
     def next(self):
         if not self.position:
             if self.crossover > 0:
-                self.buy()
+                self.buy(data, size=6)
 
         elif self.crossover < 0:
             self.close()
@@ -68,12 +66,12 @@ account.addstrategy(Strategy)
 data = bt.feeds.YahooFinanceCSVData(
     dataname='orcl.csv',
     fromdate=datetime.datetime(1996, 1, 1),
-    todate=datetime.datetime(2014, 12, 31),
+    todate=datetime.datetime(2011, 5, 24),
     reverse=None)
 
 account.adddata(data)
 
-account.broker.setcash(100000.0)
+account.broker.setcash(100.0)
 
 print('Starting Portfolio Value: %.2f' % account.broker.getvalue())
 
