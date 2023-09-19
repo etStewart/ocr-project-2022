@@ -5,6 +5,8 @@ import datetime
 
 import backtrader as bt
 
+name = 'orcl'
+
 
 class Strategy(bt.Strategy):
 
@@ -60,11 +62,14 @@ class Strategy(bt.Strategy):
             self.close()
 
 
+if name == 'orcl':
+    stock = 'orcl.csv'
+
 account = bt.Cerebro()
 account.addstrategy(Strategy)
 
 data = bt.feeds.YahooFinanceCSVData(
-    dataname='orcl.csv',
+    dataname=stock,
     fromdate=datetime.datetime(1996, 1, 1),
     todate=datetime.datetime(2011, 5, 24),
     reverse=None)
