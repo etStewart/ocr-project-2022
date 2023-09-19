@@ -5,8 +5,6 @@ import datetime
 
 import backtrader as bt
 
-name = 'orcl'
-
 
 class Strategy(bt.Strategy):
 
@@ -62,24 +60,23 @@ class Strategy(bt.Strategy):
             self.close()
 
 
-if name == 'orcl':
-    stock = 'orcl.csv'
+if __name__ == '__main__':
 
-account = bt.Cerebro()
-account.addstrategy(Strategy)
+    account = bt.Cerebro()
+    account.addstrategy(Strategy)
 
-data = bt.feeds.YahooFinanceCSVData(
-    dataname=stock,
-    fromdate=datetime.datetime(1996, 1, 1),
-    todate=datetime.datetime(2011, 5, 24),
-    reverse=None)
+    data = bt.feeds.YahooFinanceCSVData(
+        dataname='orcl.csv',
+        fromdate=datetime.datetime(1996, 1, 1),
+        todate=datetime.datetime(2011, 5, 24),
+        reverse=None)
 
-account.adddata(data)
+    account.adddata(data)
 
-account.broker.setcash(100.0)
+    account.broker.setcash(100.0)
 
-print('Starting Portfolio Value: %.2f' % account.broker.getvalue())
+    print('Starting Portfolio Value: %.2f' % account.broker.getvalue())
 
-account.run()
+    account.run()
 
-print('Final Portfolio Value: %.2f' % account.broker.getvalue())
+    print('Final Portfolio Value: %.2f' % account.broker.getvalue())
