@@ -13,40 +13,40 @@
     <h2>HTML Form</h2>
     
     <form id="myForm">
-      <label for="input1">Input 1:</label><br>
-      <input type="text" id="input1" name="input1"><br>
-      <label for="input2">Input 2:</label><br>
-      <input type="text" id="input2" name="input2"><br>
-      <label for="input3">Input 3:</label><br>
-      <input type="text" id="input3" name="input3"><br>
-      <input type="checkbox" id="checkbox1" name="checkbox1">
-      <label for="checkbox1">Check me</label><br>
-      <button type="button" onclick="submitForm()">Submit</button>
-    </form> 
-    
-    <script>
-    function submitForm() {
-    var form = document.getElementById('myForm');
-    var formData = new FormData(form);
-    var jsonObject = {};
-
-    for (const [key, value] of formData.entries()) {
-        jsonObject[key] = value;
-    }
-
-    fetch('/submit', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonObject)
-    }).then(response => response.text())
-        .then(data => console.log(data))
-        .catch((error) => {
-        console.error('Error:', error);
-        });
-    }
-    </script>
-    
+        <label for="input1">Input 1:</label><br>
+        <input type="text" id="input1" name="input1"><br>
+        <label for="input2">Input 2:</label><br>
+        <input type="text" id="input2" name="input2"><br>
+        <label for="input3">Input 3:</label><br>
+        <input type="text" id="input3" name="input3"><br>
+        <input type="checkbox" id="checkbox1" name="checkbox1">
+        <label for="checkbox1">Check me</label><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+      </form> 
+      
+      <script>
+      function submitForm() {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form);
+        var jsonObject = {};
+      
+        for (const [key, value] of formData.entries()) {
+          jsonObject[key] = value;
+        }
+      
+        fetch('/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonObject)
+        }).then(response => response.text())
+          .then(data => console.log(data))
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      }
+      </script>
+      
     </body>
 </html>
