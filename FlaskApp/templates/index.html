@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trading</title>
+    <!--Adding in a style sheet for the html file--> 
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+    <h2>Stock Simulation</h2>
+    
+    <form class="data-entry" action="/result" method="post">
+        <label id="stock_name_lable" for="stock_name">Stock Name:</label><br>
+        <input type="text" id="stock_name" name="stock_name"><br>
+        <label id="investment_lable" for="investment">Investment amount:</label><br>
+        <input type="number" id="investment" name="investment"><br>
+        <label id="start_lable" for="start_date">Start Date:</label><br>
+        <input type="number" id="start_date" name="start_date"><br>
+        <label id="confirm_lable" for="confirm_liability">Please confirm you are aware that this program is for simulation use only</label><br>  
+        <input type="text" id="confirm_liability" name="confirm_liability"><br>
+        <input type="submit" class="file_submit">
+      </form>  
+
+      <div>
+        <p style="color: blue;">{{earned}} </p>
+      </div>
+
+    </body>
+</html>
