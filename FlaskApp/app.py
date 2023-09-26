@@ -82,13 +82,11 @@ def result():
         account = bt.Cerebro()
         account.addstrategy(Strategy)
 
-        if stock_name == "orcl":
-
-            data = bt.feeds.YahooFinanceCSVData(
-                dataname='orcl.csv',
-                fromdate=datetime.datetime(start_date, 1, 1),
-                todate=datetime.datetime(2014, 12, 31),
-                reverse=None)
+        data = bt.feeds.YahooFinanceCSVData(
+            dataname="orcl.csv",
+            fromdate=datetime.datetime(start_date, 1, 1),
+            todate=datetime.datetime(2014, 12, 31),
+            reverse=None)
 
         account.adddata(data)
 
@@ -104,7 +102,7 @@ def result():
 
         print('Final Portfolio Value: %.2f' % account.broker.getvalue())
 
-    return render_template("index.html", earned=earned)
+    return render_template("index.html", stock_name=stock_name, investment=investment, start_date=start_date)
 
 
 if __name__ == "__main__":
