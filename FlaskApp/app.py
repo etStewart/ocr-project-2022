@@ -102,7 +102,7 @@ def result():
 
         print('Final Portfolio Value: %.2f' % account.broker.getvalue())
 
-    return render_template("index.html", stock_name=stock_name, investment=investment, start_date=start_date)
+    return render_template("index.html", earned=earned)
 
 
 if __name__ == "__main__":
