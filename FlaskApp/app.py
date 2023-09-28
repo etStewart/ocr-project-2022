@@ -24,6 +24,15 @@ def result():
     investment = float(output["investment"])
     start_date = int(output["start_date"])
 
+    if stock_name.lower() == "orcl":
+        stock = "orcl.csv"
+
+    if stock_name.lower() == "nvda":
+        stock = "nvda.csv"
+
+    if stock_name.lower() == "yhoo":
+        stock = "yhoo.csv"
+
     class Strategy(bt.Strategy):
 
         params = dict(
@@ -83,8 +92,8 @@ def result():
         account.addstrategy(Strategy)
 
         data = bt.feeds.YahooFinanceCSVData(
-            dataname="orcl.csv",
-            fromdate=datetime.datetime(start_date, 1, 1),
+            dataname=stock,
+            fromdate=datetime.datetime(start_date, 1, 22),
             todate=datetime.datetime(2014, 12, 31),
             reverse=None)
 

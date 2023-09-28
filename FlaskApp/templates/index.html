@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Trading</title>
-    <!--Adding in a style sheet for the html file--> 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Stock Trading</title>
+      <!--Adding in a style sheet for the html file--> 
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
 
     <h2>Stock Strategy Tester</h2>
     
-    <form class="data-entry" action="/result" method="post">
+    <form class="data-entry" onsubmit="return validateForm()" action="/result" method="post">
         <label id="stock_name_lable" for="stock_name">Stock Name (orcl, nvda, yhoo currently simulated):</label><br>
         <input type="text" id="stock_name" name="stock_name"><br>
         <label id="investment_lable" for="investment">Number of shares to buy:</label><br>
@@ -30,5 +30,39 @@
         {% endif %}
       </div>
 
-    </body>
+    <script>
+        function validateForm() {
+            var stockName = document.getElementById("stock_name").value;
+            var investment = document.getElementById("investment").value;
+            var startDate = document.getElementById("start_date").value;
+            var confirmLiability = document.getElementById("confirm_liability").value;
+
+            if (stockName == "" || investment == "" || startDate == "") {
+                alert("All fields must be filled out");
+                return false;
+            }
+
+            if (confirmLiability.toLowerCase() != "yes") {
+                alert("You must confirm liability by typing 'yes'");
+                return false;
+            }
+
+            if (stockName.toLowerCase() != "orcl" && stockName.toLowerCase() != "nvda" && stockName.toLowerCase() != "yhoo") {
+              alert("Only three stocks are curretly simulated. Choose one of those.")
+              return false
+            }
+
+            if (Number.isInteger(investment) || investment < 1) {
+              alert("Please make sure your investment is a positive number.")
+              return false
+            }
+
+            if (startDate < 1999 || startDate > 2014) {
+              alert("Start year must be between 1999 and 2014 inclusive")
+              return false
+            }
+        }
+    </script>
+
+  </body>
 </html>
