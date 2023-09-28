@@ -13,13 +13,13 @@
     <h2>Stock Strategy Tester</h2>
     
     <form class="data-entry" action="/result" method="post">
-        <label id="stock_name_lable" for="stock_name">Stock Name:</label><br>
+        <label id="stock_name_lable" for="stock_name">Stock Name (orcl, nvda, yhoo currently simulated):</label><br>
         <input type="text" id="stock_name" name="stock_name"><br>
-        <label id="investment_lable" for="investment">Investment amount:</label><br>
+        <label id="investment_lable" for="investment">Number of shares to buy:</label><br>
         <input type="number" id="investment" name="investment"><br>
-        <label id="start_lable" for="start_date">Start Date:</label><br>
+        <label id="start_lable" for="start_date">Simulation start date (1999 to 2014):</label><br>
         <input type="number" id="start_date" name="start_date"><br>
-        <label id="confirm_lable" for="confirm_liability">Please confirm you are aware that this program is for simulation use only</label><br>  
+        <label id="confirm_lable" for="confirm_liability">This is purely for simulation purposes only. You are responsible for any real money you may trade. Confirm by typing 'yes'.</label><br>  
         <input type="text" id="confirm_liability" name="confirm_liability"><br>
         <input type="submit" class="file_submit">
       </form>  
